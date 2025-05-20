@@ -17,6 +17,7 @@ import { crawlCancelController } from "../controllers/v1/crawl-cancel";
 import { Logger } from "../lib/logger";
 import { scrapeStatusController } from "../controllers/v1/scrape-status";
 import { concurrencyCheckController } from "../controllers/v1/concurrency-check";
+import { messiChatbotController } from "../controllers/v1/messiChatbot";
 // import { crawlPreviewController } from "../../src/controllers/v1/crawlPreview";
 // import { crawlJobStatusPreviewController } from "../../src/controllers/v1/status";
 // import { searchController } from "../../src/controllers/v1/search";
@@ -152,7 +153,11 @@ v1Router.ws(
     crawlStatusWSController
 );
 
-
+v1Router.post(
+    "/messi-chatbot",
+    authMiddleware(RateLimiterMode.Scrape), // Assuming similar rate limiting to scrape
+    wrap(messiChatbotController)
+);
 
 // v1Router.post("/crawlWebsitePreview", crawlPreviewController);
 
